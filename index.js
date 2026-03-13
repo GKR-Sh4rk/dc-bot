@@ -4,14 +4,15 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
+// Bot 启动事件
 client.on("ready", () => {
   console.log(`Bot 已上线 ${client.user.tag}`);
 });
 
+// 测试命令
 client.on("messageCreate", message => {
-  if (message.content === "!ping") {
-    message.reply("Pong!");
-  }
+  if (message.author.bot) return;
+  if (message.content === "!ping") message.reply("Pong!");
 });
 
-client.login("ODQ2OTY5MDM5NzE2MjIwOTU4.GcuglB.DB55zy6HjJQB8EEp6c7ba_sTpi9Hvsx4NG8oxE");
+client.login(process.env.DISCORD_TOKEN); // ✅ 安全读取环境变量
